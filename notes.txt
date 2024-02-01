@@ -1,0 +1,114 @@
+Evaluate Current Infrastructure State and Identify Challenges:
+The assessment involves understanding the current state of the infrastructure. Challenges include difficulties in maintaining and integrating new applications and performing upgrades. Initial questionnaire and documents highlighted areas of concern.
+
+Propose Practical Solutions and Outline Future Foundations:
+The goal is to propose practical solutions for the identified challenges. Outline future foundations for sustainability and growth. No decision made yet on moving to a new solution; the focus is on the review.
+
+Difficulties in Maintenance and Integration:
+Challenges in maintaining and integrating new applications. Upgrades pose difficulties.
+
+Overview of Siteminder Deployment:
+
+Installation and Upgrades:
+Installation in 1999, upgraded to v12.5.2 in 2016. Upgraded to v12.8 in 2018 to address crash issues.
+
+Integration and Authentication:
+Initial integration via form credential collector flow. Limited use of identity values, primarily using Apache with Siteminder agent. Two-step login flow explained involving a form credit cookie and authentication URL.
+
+Crash Issues and Upgrade:
+Crash issues in 2015 addressed by the upgrade to v12.8 in 2018.
+
+Changes in 2018-19:
+Changes implemented for a hard connect to a Factory SiteMinder agent. Passive host configuration for HA load balancing.
+
+Future Plans:
+Replacement of Siteminder: Long-term goal is to replace Siteminder. No defined timeline for the transition. Current focus on understanding the existing infrastructure and challenges.
+
+Deployment of Policy Servers:
+
+Setup and Failover:
+Implemented setup with a primary policy node rolling out policies to five operational servers. Enhanced system stability allowing node restarts without traffic loss. Operational servers facilitate failover in case of a policy server failure.
+
+Version and Policy Server Count:
+Currently at version 12.8, considered a base version. Approximately 190 policy servers in the production environment.
+
+Policy Store Architecture:
+
+Distributed System:
+Distributed system with policy stores co-located with policy servers. Policies are identical across all policy servers.
+
+Replication of Policy Store Data:
+Replication Process: Replication occurs only for the policy store connected to the specific policy server the agent will communicate with. Emphasis on policies being identical, but the hardware not.
+
+Scaling Approach:
+Self-Sufficient Nodes: Each Siteminder node is designed to be fully self-sufficient for maximum scalability. Emphasis on maintaining consistency in password decryption for successful operation.
+
+Deployment Configuration:
+Implemented setup with a primary policy node rolling out policies to five operational servers. Operational servers facilitate failover in case of a policy server failure. Allows for node restarts without traffic loss, enhancing system stability.
+
+Version and Policy Server Count:
+Currently at version 12.8, considered a base version. Approximately 190 policy servers in the production environment.
+
+Policy Store and Agent Configuration:
+Distributed System: Detailed explanation of the distributed system with identical policies across all policy servers. Commonized agent configuration and agent groups for policy flow. Policy master node configuration simplifies the addition of new nodes to the cluster.
+
+Security Considerations and Constraints:
+Challenges from 20 Years Ago: Challenges discussed from two decades ago, including common cryptography keys and passwords. 
+No rotation of passwords due to challenges in managing such changes.
+SSO via cookies, and the decision not to use a session store for atomicity.
+
+Session Management and Compliance:
+
+Java-Based OAuth Scheme:
+Explanation of the Java-based OAuth scheme for counting logins. Session management to ensure compliance with real-time market data licensing. Use of Cassandra as a backend for session data storage. Achieving a 99.99% compliance rate with occasional exceptions due to system nuances.
+
+Distinction Between Cassandra and Backend Service:
+Distinction made between Cassandra, acting as a session store, and a separate backend service with custom logic for user data.
+
+Migration Possibilities:
+Exploring options to migrate existing C++ custom logic into SQL database or LDAP. Contemplating replacing custom logic with out-of-the-box solutions. Considering a common requirement for login control and logic, focusing on user attributes and session management.
+
+Logging and Artifacts Impact:
+Concerns raised about potential impacts on logging and essential artifacts for business-level reporting. Hesitation to make changes due to uncertainties, emphasizing the need for extensive testing to ensure system stability.
+
+Policy Server Configuration Challenges:
+Challenges highlighted in lower environments where retail and corporate environments are not separated. Discussion on potential impact on SM session keys and encryption in lower environments. Traditional approach of using a single policy server supporting both retail and corporate, posing challenges in isolation.
+
+Policy Segregation and Recommendations:
+Recommendation to ensure isolation of policies in lower environments to prevent unintended impacts. Emphasis on modifying the install process to avoid accidental policy deployments across different application groups.
+
+Management of Policies:
+Overview of historical policy management process from version 6, involving an extensive C++ program and text files. Transition to using the Admin UI in the lower environment for policy management.
+
+Policy Curation Process:
+
+Curation Shift and Export:
+Previous use of text files for policy management considered cumbersome. Shift to using the Admin UI in the lower environment, exporting XML files, and cleaning them for deployment. Exported XML files stored in a BitBucket repository for deployment across all environments.
+
+Custom Implementations at Morgan Stanley:
+Identified custom implementations include the user directory (CWS), Java, directory API, and SDK in C++ for SitMinder integration. CWS is not SiteMinder-specific but serves as the user backend.
+
+Site Manager Faults and Logging:
+Request for version-to-version change logs to highlight impactful alterations. Mentioned potential transition to JSON format for logs, but it could disrupt the existing model. Renaming of log files and configuration differences in Apache versions were discussed. Examples of Apache issues related to security controls RFC and x-forwarded-for module were highlighted.
+
+Ecosystem Challenges and Expertise Concerns:
+Challenges in the ecosystem, including unique patterns like storing parts of SM session cookies in databases. Acknowledgment of potential issues during any forward movement. Concerns about the lack of expertise to handle unique challenges and the need for collaboration between teams.
+
+Platform Documentation and Prioritization:
+
+Discussion on creating a platform for documentation where both teams can contribute. Consideration of prioritizing challenges and deciding whether they are worth addressing.
+
+On-the-Ground Expertise:
+The importance of on-the-ground expertise for managing unique challenges. Acknowledgment that separating unique challenges into buckets for prioritization is crucial.
+
+On-the-Ground Expertise Requirements:
+The need for individuals with a basic understanding of SiteMinder installation processes. Emphasis on bringing individuals having both E-Trade custom implementation and SiteMinder knowledge with underserved competence.
+
+Deployment Capability and Kubernetes:
+E-Trade follows Docker and Kubernetes as the platform of choice.
+
+Environment and Version Information:
+Confirmation of E-Trade being part of Morgan Stanley with different environment maturity levels. Consideration of moving to SiteMinder version 12.8.7 from the current 12.8.6a.
+
+Support and Upgrade Considerations:
+Current version (12.8) is generally not supported. Importance of aligning the entire ecosystem with the latest SiteMinder version during an upgrade.
